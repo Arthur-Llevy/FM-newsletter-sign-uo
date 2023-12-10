@@ -5,7 +5,6 @@ import { Popup } from '../Popup/';
 
 export const Container = () => {
 
-	const [email, setEmail] = useState<string>('');
 	const [isPopUpVisible, setIsPopUpVisible] = useState<boolean>(false);
 	const emailInput = useRef<HTMLInputElement>(null);
 
@@ -15,8 +14,10 @@ export const Container = () => {
 	
 	const handleSubmit = (e: FormEvent): void => {
 		e.preventDefault();
-		if(emailInput.current.checkValidity() && emailInput.current.value.length !== 0){
-			changePopupVisibility();
+		if(emailInput.current){
+			if(emailInput.current.checkValidity() && emailInput.current.value.length !== 0){
+				changePopupVisibility();
+			}
 		};
 	};
 
@@ -59,7 +60,7 @@ export const Container = () => {
 			</div>
 		) : (
 			<Popup
-				userEmail={emailInput.current.value}
+				userEmail={emailInput.current!.value}
 				changePopupVisibility={changePopupVisibility}
 			/>
 		)
